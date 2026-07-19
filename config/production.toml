@@ -1,0 +1,14 @@
+[server]
+host = "0.0.0.0"
+port = 8088
+
+[database]
+url = "postgres://localhost:5432/ara"
+max_connections = 10
+
+[jwt]
+secret = "ara-json-web-token-secret"
+expire_hours = 24
+
+[log]
+level = "warn"

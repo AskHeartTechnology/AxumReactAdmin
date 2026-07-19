@@ -1,3 +1,5 @@
+pub mod config;
+
 use axum::{Router, http::StatusCode, response::IntoResponse, routing::get};
 use tokio::net::TcpListener;
 
@@ -17,7 +19,9 @@ pub fn build_router() -> Router {
         .fallback(not_found)
 }
 
-pub async fn run(addr: &str) -> Result<(), std::io::Error> {
+pub async fn run() -> Result<(), std::io::Error> {
+    let config = config::AppConfig::load().unwrap();
+    let addr = config.bind_addr();
     let listener = TcpListener::bind(addr).await?;
     println!("Server is listening on {} .", listener.local_addr()?);
     axum::serve(listener, build_router()).await
