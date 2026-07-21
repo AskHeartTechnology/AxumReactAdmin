@@ -1,7 +1,14 @@
+pub mod common;
 pub mod config;
+pub mod handlers;
+pub mod models;
+pub mod routes;
+pub mod services;
 
 use axum::{Router, http::StatusCode, response::IntoResponse, routing::get};
 use tokio::net::TcpListener;
+
+use crate::routes::api_routes;
 
 async fn not_found() -> impl IntoResponse {
     (StatusCode::NOT_FOUND, "not_found")
@@ -12,9 +19,10 @@ async fn health() -> &'static str {
 }
 
 pub fn build_router() -> Router {
-    let api = Router::new().route("/health", get(health));
+    let api = Router::new().merge(api_routes());
     Router::new()
         .route("/", get(health))
+        .route("/health", get(health))
         .nest("/api", api)
         .fallback(not_found)
 }
