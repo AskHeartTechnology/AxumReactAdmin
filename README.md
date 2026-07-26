@@ -2,9 +2,9 @@
 
 <p style="text-align: center;">
   <img src="https://img.shields.io/badge/Rust-1.80+-orange.svg" alt="Rust Version">
-  <img src="https://img.shields.io/badge/Axum-0.8.7-blue.svg" alt="Axum Version">
+  <img src="https://img.shields.io/badge/Axum-0.8.9-blue.svg" alt="Axum Version">
   <img src="https://img.shields.io/badge/React-19.2-blue.svg" alt="React Version">
-  <img src="https://img.shields.io/badge/TypeScript-5.9-blue.svg" alt="TypeScript Version">
+  <img src="https://img.shields.io/badge/TypeScript-6.0-blue.svg" alt="TypeScript Version">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
 </p>
 
