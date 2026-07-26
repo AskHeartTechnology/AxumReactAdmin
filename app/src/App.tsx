@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Login from '@/components/auth/Login'
+import UserManagePage from './pages/user'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,6 +16,8 @@ function App() {
       </button>
 
       <Login />
+
+      <UserManagePage />
     </>
   )
 }

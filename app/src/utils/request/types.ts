@@ -2,12 +2,12 @@ import type { InternalAxiosRequestConfig } from 'axios'
 
 // 自定义code码
 export const ResponseCode = {
-  SUCCESS: 2000, // 成功
-  BAD_REQUEST: 4000, // 请求错误
-  UNAUTHORIZED: 4001, // 未认证
-  FORBIDDEN: 4003, // 请求被拒绝
-  NOT_FOUND: 4004, // 请求地址不存在
-  ERROR: 5000, // 服务器异常
+  SUCCESS: 200, // 成功
+  BAD_REQUEST: 400, // 请求错误
+  UNAUTHORIZED: 401, // 未认证
+  FORBIDDEN: 403, // 请求被拒绝
+  NOT_FOUND: 404, // 请求地址不存在
+  ERROR: 500, // 服务器异常
 } as const
 
 export const HttpStatusMessageMap: Record<number, string> = {
@@ -36,5 +36,5 @@ export type HttpRequestConfig = Omit<RequestConfig, 'headers'>
 export type Result<T> = {
   code: HttpResponseCode
   message: string
-  result: T
+  data: T
 }

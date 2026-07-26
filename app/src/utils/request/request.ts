@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { HttpStatusCode } from 'axios'
 import type {
   AxiosError,
   AxiosInstance,
@@ -50,7 +50,10 @@ export class HttpRequest {
     // 响应拦截器
     this.instance.interceptors.response.use(
       (res: AxiosResponse) => {
-        return Promise.resolve(res)
+        if (res.status === HttpStatusCode.Ok) {
+          return Promise.resolve(res.data)
+        }
+        return Promise.reject({ ...res.data })
       },
       (err: AxiosError) => {
         // 这里用来处理http常见错误，进行全局提示
@@ -73,35 +76,35 @@ export class HttpRequest {
 
   // * 封装常用请求方法
 
-  public get<T>(
+  public get<R, P>(
     url: string,
-    params?: T,
+    params?: P,
     config?: HttpRequestConfig
-  ): Promise<AxiosResponse<Result<T>>> {
+  ): Promise<Result<R>> {
     return this.instance.get(url, { ...config, params })
   }
 
-  public post<T>(
+  public post<R, P>(
     url: string,
-    data?: T,
+    data?: P,
     config?: HttpRequestConfig
-  ): Promise<AxiosResponse<Result<T>>> {
+  ): Promise<Result<R>> {
     return this.instance.post(url, data, config)
   }
 
-  public put<T>(
+  public put<R, P>(
     url: string,
-    data?: T,
+    data?: P,
     config?: HttpRequestConfig
-  ): Promise<AxiosResponse<Result<T>>> {
+  ): Promise<Result<R>> {
     return this.instance.put(url, data, config)
   }
 
-  public delete<T>(
+  public delete<R, P>(
     url: string,
-    params?: T,
+    params?: P,
     config?: HttpRequestConfig
-  ): Promise<AxiosResponse<Result<T>>> {
+  ): Promise<Result<R>> {
     return this.instance.delete(url, { ...config, params })
   }
 }
