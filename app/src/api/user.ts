@@ -6,7 +6,7 @@ export const getUsers = (params?: { pageNum: number; pageSize: number }) => {
 }
 
 export const getUser = (id: string) => {
-  return get(`/users/detail/${id}`)
+  return get<IUser, undefined>(`/users/detail/${id}`)
 }
 
 export const createUser = () => {

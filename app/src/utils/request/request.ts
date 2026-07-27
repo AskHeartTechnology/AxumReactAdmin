@@ -11,6 +11,7 @@ import {
   type RequestConfig,
   type Result,
 } from './types'
+import { useStorageStore } from '@/store/useStorageStore'
 
 export class HttpRequest {
   // Axios 实例对象
@@ -29,7 +30,7 @@ export class HttpRequest {
     this.instance.interceptors.request.use(
       (config: RequestConfig) => {
         // 获取token,并添加到请求头
-        const token = localStorage.getItem('token')
+        const token = useStorageStore.getState().token
         const { needToken = true } = config
         // 处理请求头的一些内容
         if (config && config.headers) {

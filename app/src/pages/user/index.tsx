@@ -1,23 +1,12 @@
-import type { IUser } from '@/api/types/user'
-import { getUsers } from '@/api/user'
-import { ResponseCode } from '@/utils/request/types'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useUserStore } from '@/store/useUserStore'
 
 const UserManagePage = () => {
-  const [users, setUsers] = useState<IUser[]>([])
-
-  const fetchUsers = async () => {
-    const { code, data } = await getUsers()
-    if (code === ResponseCode.SUCCESS) {
-      setUsers(data)
-    } else {
-      setUsers([])
-    }
-  }
+  const { users, fetchUsers } = useUserStore()
 
   useEffect(() => {
     fetchUsers()
-  }, [])
+  }, [fetchUsers])
 
   return (
     <div className="user-manage-page">
