@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useUserStore } from '@/store/useUserStore'
+import { Button } from '@/components/ui/button'
 
 const UserManagePage = () => {
   const { users, fetchUsers } = useUserStore()
@@ -7,6 +8,10 @@ const UserManagePage = () => {
   useEffect(() => {
     fetchUsers()
   }, [fetchUsers])
+
+  const handleClick = () => {
+    alert('按钮被点击了')
+  }
 
   return (
     <div className="user-manage-page">
@@ -20,6 +25,7 @@ const UserManagePage = () => {
           )
         })}
       </ul>
+      <Button onClick={handleClick}>点击</Button>
     </div>
   )
 }
