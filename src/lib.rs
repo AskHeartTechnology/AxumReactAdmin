@@ -5,14 +5,10 @@ pub mod models;
 pub mod routes;
 pub mod services;
 
-use axum::{Router, http::StatusCode, response::IntoResponse, routing::get};
+use axum::{Router, routing::get};
 use tokio::net::TcpListener;
 
-use crate::routes::api_routes;
-
-async fn not_found() -> impl IntoResponse {
-    (StatusCode::NOT_FOUND, "not_found")
-}
+use crate::routes::{api_routes, static_handler};
 
 async fn health() -> &'static str {
     "Server is Healthy!"
@@ -21,10 +17,9 @@ async fn health() -> &'static str {
 pub fn build_router() -> Router {
     let api = Router::new().merge(api_routes());
     Router::new()
-        .route("/", get(health))
         .route("/health", get(health))
         .nest("/api", api)
-        .fallback(not_found)
+        .fallback(static_handler)
 }
 
 pub async fn run() -> Result<(), std::io::Error> {
