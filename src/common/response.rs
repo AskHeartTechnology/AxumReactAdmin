@@ -4,13 +4,16 @@ use axum::{
     response::{IntoResponse, Response},
 };
 use serde::Serialize;
+use utoipa::ToSchema;
 
 use crate::common::{code::ApiCode, error::AppError};
 
-#[derive(Serialize)]
+#[derive(Serialize, Debug, ToSchema)]
 pub struct ApiResponse<T: Serialize> {
+    #[schema(value_type = i32, example = 200)]
     pub code: ApiCode,
 
+    #[schema(example = "请求成功")]
     pub message: String,
 
     pub data: Option<T>,
@@ -55,5 +58,8 @@ impl<T: Serialize> IntoResponse for ApiResponse<T> {
         (StatusCode::OK, Json(self)).into_response()
     }
 }
+
+#[derive(Debug, Serialize, ToSchema)]
+pub struct EmptyData {}
 
 pub type ApiResult<T> = Result<ApiResponse<T>, AppError>;

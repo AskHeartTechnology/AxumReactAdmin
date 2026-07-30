@@ -10,6 +10,7 @@ pub struct AppConfig {
     pub database: DatabaseConfig,
     pub jwt: JwtConfig,
     pub log: LogConfig,
+    pub swagger: SwaggerConfig,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -33,6 +34,12 @@ pub struct DatabaseConfig {
 #[derive(Debug, Clone, Deserialize)]
 pub struct LogConfig {
     pub level: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct SwaggerConfig {
+    pub username: String,
+    pub password: String,
 }
 
 impl AppConfig {

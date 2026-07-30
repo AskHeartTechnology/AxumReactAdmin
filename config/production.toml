@@ -12,3 +12,7 @@ expire_hours = 24
 
 [log]
 level = "warn"
+
+[swagger]
+username = ""
+password = ""

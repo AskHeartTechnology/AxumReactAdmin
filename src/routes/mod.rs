@@ -7,6 +7,8 @@ use axum::{
 };
 use rust_embed::Embed;
 
+use crate::routes::users::UserRouterPaths;
+
 static INDEX_HTML: &str = "index.html";
 
 #[derive(Embed)]
@@ -49,5 +51,5 @@ async fn not_found() -> Response {
 }
 
 pub fn api_routes() -> Router {
-    Router::new().nest("/users", users::user_routes())
+    Router::new().nest(UserRouterPaths::Prefix.path(), users::user_routes())
 }
