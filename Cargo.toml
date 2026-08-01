@@ -18,3 +18,13 @@ mime_guess = "2"
 const_format = "0.2.36"
 utoipa = { version = "5.5.0", features = ["axum_extras"] }
 utoipa-swagger-ui = { version = "9.0.2", features = ["axum"] }
+utoipa-rapidoc = { version = "6.0.0", features = ["axum"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = [
+  "env-filter",
+  "fmt",
+  "json",
+] }
+tracing-appender = "0.2.5"
+tower-http = { version = "0.7.0", features = ["trace", "request-id", "cors"] }
+chrono = "0.4.45"

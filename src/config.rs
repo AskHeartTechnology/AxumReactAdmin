@@ -33,7 +33,14 @@ pub struct DatabaseConfig {
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct LogConfig {
+    /// info / debug / warn / error
     pub level: String,
+    /// console / json
+    pub format: String,
+    /// 统一日志目标名称
+    pub target: String,
+    /// 是否开启终端颜色
+    pub ansi: bool,
 }
 
 #[derive(Debug, Clone, Deserialize)]

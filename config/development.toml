@@ -12,6 +12,9 @@ expire_hours = 24
 
 [log]
 level = "info"
+format = "console"
+target = "ARA-API-DEV"
+ansi = true
 
 [swagger]
 username = ""

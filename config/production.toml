@@ -11,7 +11,10 @@ secret = "ara-json-web-token-secret"
 expire_hours = 24
 
 [log]
-level = "warn"
+level = "warn,tower_http=info"
+format = "json"
+target = "ARA-API-PROD"
+ansi = false
 
 [swagger]
 username = ""
