@@ -16,7 +16,7 @@ dotenv = "0.15.0"
 rust-embed = "8.12.0"
 mime_guess = "2"
 const_format = "0.2.36"
-utoipa = { version = "5.5.0", features = ["axum_extras"] }
+utoipa = { version = "5.5.0", features = ["axum_extras", "chrono", "uuid"] }
 utoipa-swagger-ui = { version = "9.0.2", features = ["axum"] }
 utoipa-rapidoc = { version = "6.0.0", features = ["axum"] }
 tracing = "0.1.44"
@@ -27,4 +27,12 @@ tracing-subscriber = { version = "0.3.23", features = [
 ] }
 tracing-appender = "0.2.5"
 tower-http = { version = "0.7.0", features = ["trace", "request-id", "cors"] }
-chrono = "0.4.45"
+chrono = { version = "0.4.45", features = ["serde"] }
+uuid = { version = "1", features = ["v4"] }
+sea-orm = { version = "2.0.0", features = [
+  "sqlx-postgres",
+  "runtime-tokio-rustls",
+  "macros",
+  "with-uuid",
+  "with-chrono",
+] }

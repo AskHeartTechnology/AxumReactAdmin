@@ -86,6 +86,9 @@ AxumReactAdmin/               # 项目根
 │   ├── models/               # 数据库实体
 │   │   ├── mod.rs
 │   │   ├── users.rs
+│   ├── dto/                  # 数据传输(请求参数/响应数据等等)
+│   │   ├── mod.rs
+│   │   ├── users.rs
 │   └── middleware/           # 中间件 鉴权、日志、CORS 等
 │       ├── mod.rs
 │       └── auth.rs

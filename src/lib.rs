@@ -1,5 +1,6 @@
 pub mod common;
 pub mod config;
+pub mod dto;
 pub mod handlers;
 pub mod models;
 pub mod openapi;
@@ -7,8 +8,10 @@ pub mod routes;
 pub mod services;
 
 use crate::{
-    common::logger,
-    common::logger::http::request_span,
+    common::{
+        db,
+        logger::{self, http::request_span},
+    },
     config::AppConfig,
     openapi::ApiDoc,
     routes::{api_routes, static_handler},
@@ -78,7 +81,10 @@ pub fn build_router(config: AppConfig) -> Router {
 pub async fn run() -> Result<(), std::io::Error> {
     let config = config::AppConfig::load().expect("项目配置加载失败");
     let addr = config.bind_addr();
+    // 初始化日志
     logger::init(&config);
+    // 数据库连接
+    let _ = db::connect::init(&config).await;
     let listener = TcpListener::bind(addr).await?;
     log_info!("Server is listening on {} .", listener.local_addr()?);
     axum::serve(listener, build_router(config)).await

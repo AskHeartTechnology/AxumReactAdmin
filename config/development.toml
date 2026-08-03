@@ -1,10 +1,12 @@
 [server]
 host = "0.0.0.0"
 port = 8000
+mode = "development"
 
 [database]
-url = "postgres://localhost:54321/ara"
-max_connections = 10
+url = "postgres://postgres:postgres@localhost:5432/ara"
+max_connections = 0
+min_connections = 0
 
 [jwt]
 secret = "ara-json-web-token-secret"

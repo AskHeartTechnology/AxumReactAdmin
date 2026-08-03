@@ -1,11 +1,13 @@
 use axum::extract::Path;
+use uuid::Uuid;
 
 use crate::{
     common::{
         extractors::AppJson,
         response::{ApiResponse, ApiResult, EmptyData},
     },
-    models::users::{CreateUser, UpdateUser, User},
+    dto::users::{CreateUser, UpdateUser},
+    models::users::Model as User,
     routes::users::UserRouterPaths,
     services::users::{create_user, delete_user, get_user_detail, get_user_list, update_user},
 };
@@ -28,7 +30,7 @@ pub async fn list_user_handler() -> ApiResult<Vec<User>> {
     get,
     path = UserRouterPaths::Detail.full_path(),
     params(
-        ("id" = u64, Path, description = "用户 ID", example = 1)
+        ("id" = Uuid, Path, description = "用户 ID", example = 1)
     ),
     responses(
         (status = 200, description = "查询成功", body = ApiResponse<User>)
@@ -36,7 +38,7 @@ pub async fn list_user_handler() -> ApiResult<Vec<User>> {
     tag = "用户管理",
     summary = "用户详情"
 )]
-pub async fn detail_user_handler(Path(id): Path<u64>) -> ApiResult<User> {
+pub async fn detail_user_handler(Path(id): Path<Uuid>) -> ApiResult<User> {
     let user = get_user_detail(id)?;
     Ok(ApiResponse::ok(user))
 }
@@ -64,7 +66,7 @@ pub async fn create_user_handler(AppJson(body): AppJson<CreateUser>) -> ApiResul
     put,
     path = UserRouterPaths::Update.full_path(),
     params(
-        ("id" = u64, Path, description = "用户 ID", example = 1)
+        ("id" = Uuid, Path, description = "用户 ID", example = 1)
     ),
     request_body = UpdateUser,
     responses(
@@ -74,7 +76,7 @@ pub async fn create_user_handler(AppJson(body): AppJson<CreateUser>) -> ApiResul
     summary = "更新用户"
 )]
 pub async fn update_user_handler(
-    Path(id): Path<u64>,
+    Path(id): Path<Uuid>,
     AppJson(body): AppJson<UpdateUser>,
 ) -> ApiResult<User> {
     let user = update_user(id, body)?;
@@ -85,7 +87,7 @@ pub async fn update_user_handler(
     delete,
     path = UserRouterPaths::Delete.full_path(),
     params(
-        ("id" = u64, Path, description = "用户 ID", example = 1)
+        ("id" = Uuid, Path, description = "用户 ID", example = 1)
     ),
     responses(
         (status = 200, description = "删除成功", body = ApiResponse<EmptyData>)
@@ -93,7 +95,7 @@ pub async fn update_user_handler(
     tag = "用户管理",
     summary = "删除用户"
 )]
-pub async fn delete_user_handler(Path(id): Path<u64>) -> ApiResult<()> {
+pub async fn delete_user_handler(Path(id): Path<Uuid>) -> ApiResult<()> {
     delete_user(id)?;
     Ok(ApiResponse::ok_msg((), "用户删除成功"))
 }

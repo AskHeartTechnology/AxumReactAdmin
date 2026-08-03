@@ -1,7 +1,8 @@
 use utoipa::OpenApi;
 
+use crate::dto::users::{CreateUser, UpdateUser};
 use crate::handlers::users::*;
-use crate::models::users::{CreateUser, UpdateUser, User};
+use crate::models::users::Model as User;
 
 #[derive(OpenApi)]
 #[openapi(

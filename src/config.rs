@@ -17,6 +17,7 @@ pub struct AppConfig {
 pub struct ServerConfig {
     pub host: String,
     pub port: u16,
+    pub mode: String,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -29,6 +30,7 @@ pub struct JwtConfig {
 pub struct DatabaseConfig {
     pub url: String,
     pub max_connections: u32,
+    pub min_connections: u32,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -65,7 +67,8 @@ impl AppConfig {
                     .separator("__")
                     .try_parsing(true)
                     // ✅ 关键：让 APP_SERVER__PORT → server.port
-                    .convert_case(Case::Lower),
+                    // ✅ 关键：让 APP_SERVER__TEST_PORT → server.test_port
+                    .convert_case(Case::Snake),
             )
             .build()?;
 
